@@ -1,0 +1,422 @@
+{
+  "executado_em": "2026-10-13T23:46:30.654174+00:00",
+  "ferramenta": "FastAPI TestClient / httpx",
+  "banco": "SQLite temporário em arquivo; aplicação encerrada e recriada no teste de persistência",
+  "requisicoes": [
+    {
+      "rotulo": "sem_chave",
+      "metodo": "GET",
+      "rota": "/cartas",
+      "entrada": null,
+      "autenticado": false,
+      "headers_entrada": {},
+      "status": 401,
+      "headers_resposta": {},
+      "resposta": {
+        "detail": "Chave de acesso ausente ou inválida."
+      }
+    },
+    {
+      "rotulo": "post",
+      "metodo": "POST",
+      "rota": "/cartas",
+      "entrada": {
+        "nome": "Mago Negro",
+        "tipo": "monstro",
+        "quantidade": 3
+      },
+      "autenticado": true,
+      "headers_entrada": {},
+      "status": 201,
+      "headers_resposta": {
+        "location": "/cartas/1"
+      },
+      "resposta": {
+        "nome": "Mago Negro",
+        "tipo": "monstro",
+        "quantidade": 3,
+        "idioma": "Português",
+        "conservacao": "boa",
+        "observacoes": "",
+        "id": 1
+      }
+    },
+    {
+      "rotulo": "lista",
+      "metodo": "GET",
+      "rota": "/cartas",
+      "entrada": null,
+      "autenticado": true,
+      "headers_entrada": {},
+      "status": 200,
+      "headers_resposta": {},
+      "resposta": [
+        {
+          "nome": "Mago Negro",
+          "tipo": "monstro",
+          "quantidade": 3,
+          "idioma": "Português",
+          "conservacao": "boa",
+          "observacoes": "",
+          "id": 1
+        }
+      ]
+    },
+    {
+      "rotulo": "consulta",
+      "metodo": "GET",
+      "rota": "/cartas/1",
+      "entrada": null,
+      "autenticado": true,
+      "headers_entrada": {},
+      "status": 200,
+      "headers_resposta": {},
+      "resposta": {
+        "nome": "Mago Negro",
+        "tipo": "monstro",
+        "quantidade": 3,
+        "idioma": "Português",
+        "conservacao": "boa",
+        "observacoes": "",
+        "id": 1
+      }
+    },
+    {
+      "rotulo": "filtro",
+      "metodo": "GET",
+      "rota": "/cartas?q=mago&tipo=monstro",
+      "entrada": null,
+      "autenticado": true,
+      "headers_entrada": {},
+      "status": 200,
+      "headers_resposta": {},
+      "resposta": [
+        {
+          "nome": "Mago Negro",
+          "tipo": "monstro",
+          "quantidade": 3,
+          "idioma": "Português",
+          "conservacao": "boa",
+          "observacoes": "",
+          "id": 1
+        }
+      ]
+    },
+    {
+      "rotulo": "patch",
+      "metodo": "PATCH",
+      "rota": "/cartas/1",
+      "entrada": {
+        "quantidade": 2
+      },
+      "autenticado": true,
+      "headers_entrada": {},
+      "status": 200,
+      "headers_resposta": {},
+      "resposta": {
+        "nome": "Mago Negro",
+        "tipo": "monstro",
+        "quantidade": 2,
+        "idioma": "Português",
+        "conservacao": "boa",
+        "observacoes": "",
+        "id": 1
+      }
+    },
+    {
+      "rotulo": "invalido",
+      "metodo": "POST",
+      "rota": "/cartas",
+      "entrada": {
+        "nome": "Mago Negro",
+        "tipo": "monstro",
+        "quantidade": 0
+      },
+      "autenticado": true,
+      "headers_entrada": {},
+      "status": 400,
+      "headers_resposta": {},
+      "resposta": {
+        "detail": "Dados inválidos.",
+        "erros": [
+          {
+            "campo": "body.quantidade",
+            "mensagem": "Input should be greater than or equal to 1"
+          }
+        ]
+      }
+    },
+    {
+      "rotulo": "duplicado",
+      "metodo": "POST",
+      "rota": "/cartas",
+      "entrada": {
+        "nome": "Mago Negro",
+        "tipo": "monstro",
+        "quantidade": 3
+      },
+      "autenticado": true,
+      "headers_entrada": {},
+      "status": 409,
+      "headers_resposta": {},
+      "resposta": {
+        "detail": "Conflito de dados: nome duplicado ou vínculo inválido."
+      }
+    },
+    {
+      "rotulo": "nao_encontrado",
+      "metodo": "GET",
+      "rota": "/cartas/999",
+      "entrada": null,
+      "autenticado": true,
+      "headers_entrada": {},
+      "status": 404,
+      "headers_resposta": {},
+      "resposta": {
+        "detail": "Recurso não encontrado."
+      }
+    },
+    {
+      "rotulo": "deck",
+      "metodo": "POST",
+      "rota": "/decks",
+      "entrada": {
+        "nome": "Magos",
+        "descricao": "Composição de estudo"
+      },
+      "autenticado": true,
+      "headers_entrada": {},
+      "status": 201,
+      "headers_resposta": {
+        "location": "/decks/1"
+      },
+      "resposta": {
+        "nome": "Magos",
+        "descricao": "Composição de estudo",
+        "id": 1
+      }
+    },
+    {
+      "rotulo": "item",
+      "metodo": "PUT",
+      "rota": "/decks/1/cartas/1",
+      "entrada": {
+        "quantidade": 2
+      },
+      "autenticado": true,
+      "headers_entrada": {},
+      "status": 201,
+      "headers_resposta": {},
+      "resposta": {
+        "carta": {
+          "nome": "Mago Negro",
+          "tipo": "monstro",
+          "quantidade": 2,
+          "idioma": "Português",
+          "conservacao": "boa",
+          "observacoes": "",
+          "id": 1
+        },
+        "quantidade": 2
+      }
+    },
+    {
+      "rotulo": "put_repetido",
+      "metodo": "PUT",
+      "rota": "/decks/1/cartas/1",
+      "entrada": {
+        "quantidade": 2
+      },
+      "autenticado": true,
+      "headers_entrada": {},
+      "status": 200,
+      "headers_resposta": {},
+      "resposta": {
+        "carta": {
+          "nome": "Mago Negro",
+          "tipo": "monstro",
+          "quantidade": 2,
+          "idioma": "Português",
+          "conservacao": "boa",
+          "observacoes": "",
+          "id": 1
+        },
+        "quantidade": 2
+      }
+    },
+    {
+      "rotulo": "deck_detalhe",
+      "metodo": "GET",
+      "rota": "/decks/1",
+      "entrada": null,
+      "autenticado": true,
+      "headers_entrada": {},
+      "status": 200,
+      "headers_resposta": {},
+      "resposta": {
+        "nome": "Magos",
+        "descricao": "Composição de estudo",
+        "id": 1,
+        "itens": [
+          {
+            "carta": {
+              "nome": "Mago Negro",
+              "tipo": "monstro",
+              "quantidade": 2,
+              "idioma": "Português",
+              "conservacao": "boa",
+              "observacoes": "",
+              "id": 1
+            },
+            "quantidade": 2
+          }
+        ],
+        "total_cartas": 2
+      }
+    },
+    {
+      "rotulo": "estoque",
+      "metodo": "PUT",
+      "rota": "/decks/1/cartas/1",
+      "entrada": {
+        "quantidade": 3
+      },
+      "autenticado": true,
+      "headers_entrada": {},
+      "status": 409,
+      "headers_resposta": {},
+      "resposta": {
+        "detail": "O deck não pode usar mais cópias que a coleção possui."
+      }
+    },
+    {
+      "rotulo": "exclusao_vinculada",
+      "metodo": "DELETE",
+      "rota": "/cartas/1",
+      "entrada": null,
+      "autenticado": true,
+      "headers_entrada": {},
+      "status": 409,
+      "headers_resposta": {},
+      "resposta": {
+        "detail": "Remova a carta dos decks antes de excluí-la da coleção."
+      }
+    },
+    {
+      "rotulo": "cors",
+      "metodo": "OPTIONS",
+      "rota": "/cartas",
+      "entrada": null,
+      "autenticado": false,
+      "headers_entrada": {
+        "Origin": "http://localhost:5173",
+        "Access-Control-Request-Method": "GET",
+        "Access-Control-Request-Headers": "X-API-Key"
+      },
+      "status": 200,
+      "headers_resposta": {
+        "access-control-allow-methods": "GET, POST, PATCH, PUT, DELETE",
+        "access-control-allow-headers": "Accept, Accept-Language, Content-Language, Content-Type, X-API-Key",
+        "access-control-allow-origin": "http://localhost:5173"
+      },
+      "resposta": "OK"
+    },
+    {
+      "rotulo": "cors_negado",
+      "metodo": "OPTIONS",
+      "rota": "/cartas",
+      "entrada": null,
+      "autenticado": false,
+      "headers_entrada": {
+        "Origin": "https://origem-nao-permitida.example",
+        "Access-Control-Request-Method": "GET"
+      },
+      "status": 400,
+      "headers_resposta": {
+        "access-control-allow-methods": "GET, POST, PATCH, PUT, DELETE",
+        "access-control-allow-headers": "Accept, Accept-Language, Content-Language, Content-Type, X-API-Key"
+      },
+      "resposta": "Disallowed CORS origin"
+    },
+    {
+      "rotulo": "remover_item",
+      "metodo": "DELETE",
+      "rota": "/decks/1/cartas/1",
+      "entrada": null,
+      "autenticado": true,
+      "headers_entrada": {},
+      "status": 204,
+      "headers_resposta": {},
+      "resposta": null
+    },
+    {
+      "rotulo": "delete",
+      "metodo": "DELETE",
+      "rota": "/cartas/1",
+      "entrada": null,
+      "autenticado": true,
+      "headers_entrada": {},
+      "status": 204,
+      "headers_resposta": {},
+      "resposta": null
+    },
+    {
+      "rotulo": "apos_exclusao",
+      "metodo": "GET",
+      "rota": "/cartas/1",
+      "entrada": null,
+      "autenticado": true,
+      "headers_entrada": {},
+      "status": 404,
+      "headers_resposta": {},
+      "resposta": {
+        "detail": "Recurso não encontrado."
+      }
+    },
+    {
+      "rotulo": "nova_carta",
+      "metodo": "POST",
+      "rota": "/cartas",
+      "entrada": {
+        "nome": "Dragão Branco de Olhos Azuis",
+        "tipo": "monstro",
+        "quantidade": 1
+      },
+      "autenticado": true,
+      "headers_entrada": {},
+      "status": 201,
+      "headers_resposta": {
+        "location": "/cartas/1"
+      },
+      "resposta": {
+        "nome": "Dragão Branco de Olhos Azuis",
+        "tipo": "monstro",
+        "quantidade": 1,
+        "idioma": "Português",
+        "conservacao": "boa",
+        "observacoes": "",
+        "id": 1
+      }
+    },
+    {
+      "rotulo": "persistencia",
+      "metodo": "GET",
+      "rota": "/cartas",
+      "entrada": null,
+      "autenticado": true,
+      "status": 200,
+      "headers_resposta": {},
+      "resposta": [
+        {
+          "nome": "Dragão Branco de Olhos Azuis",
+          "tipo": "monstro",
+          "quantidade": 1,
+          "idioma": "Português",
+          "conservacao": "boa",
+          "observacoes": "",
+          "id": 1
+        }
+      ]
+    }
+  ]
+}
