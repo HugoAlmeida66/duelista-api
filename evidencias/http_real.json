@@ -1,0 +1,87 @@
+{
+  "resultado": "aprovado",
+  "servidor": "Uvicorn em loopback; banco temporário",
+  "persistencia_apos_reinicio": true,
+  "requisicoes": [
+    {
+      "metodo": "GET",
+      "rota": "/docs",
+      "status": 200
+    },
+    {
+      "metodo": "GET",
+      "rota": "/cartas",
+      "status": 401
+    },
+    {
+      "metodo": "POST",
+      "rota": "/cartas",
+      "status": 201
+    },
+    {
+      "metodo": "GET",
+      "rota": "/cartas?q=mago",
+      "status": 200
+    },
+    {
+      "metodo": "PATCH",
+      "rota": "/cartas/1",
+      "status": 200
+    },
+    {
+      "metodo": "POST",
+      "rota": "/decks",
+      "status": 201
+    },
+    {
+      "metodo": "PUT",
+      "rota": "/decks/1/cartas/1",
+      "status": 201
+    },
+    {
+      "metodo": "PUT",
+      "rota": "/decks/1/cartas/1",
+      "status": 200
+    },
+    {
+      "metodo": "GET",
+      "rota": "/decks/1",
+      "status": 200
+    },
+    {
+      "metodo": "PUT",
+      "rota": "/decks/1/cartas/1",
+      "status": 409
+    },
+    {
+      "metodo": "POST",
+      "rota": "/cartas",
+      "status": 400
+    },
+    {
+      "metodo": "GET",
+      "rota": "/cartas/1",
+      "status": 200
+    },
+    {
+      "metodo": "DELETE",
+      "rota": "/cartas/1",
+      "status": 409
+    },
+    {
+      "metodo": "DELETE",
+      "rota": "/decks/1",
+      "status": 204
+    },
+    {
+      "metodo": "DELETE",
+      "rota": "/cartas/1",
+      "status": 204
+    },
+    {
+      "metodo": "GET",
+      "rota": "/cartas/1",
+      "status": 404
+    }
+  ]
+}
