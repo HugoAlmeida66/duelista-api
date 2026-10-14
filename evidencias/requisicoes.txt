@@ -1,0 +1,131 @@
+sem_chave: GET /cartas
+Sem chave de autenticação
+Entrada: null
+HTTP 401
+Resposta: {"detail": "Chave de acesso ausente ou inválida."}
+
+post: POST /cartas
+X-API-Key: [ocultada]
+Entrada: {"nome": "Mago Negro", "tipo": "monstro", "quantidade": 3}
+HTTP 201
+Resposta: {"nome": "Mago Negro", "tipo": "monstro", "quantidade": 3, "idioma": "Português", "conservacao": "boa", "observacoes": "", "id": 1}
+
+lista: GET /cartas
+X-API-Key: [ocultada]
+Entrada: null
+HTTP 200
+Resposta: [{"nome": "Mago Negro", "tipo": "monstro", "quantidade": 3, "idioma": "Português", "conservacao": "boa", "observacoes": "", "id": 1}]
+
+consulta: GET /cartas/1
+X-API-Key: [ocultada]
+Entrada: null
+HTTP 200
+Resposta: {"nome": "Mago Negro", "tipo": "monstro", "quantidade": 3, "idioma": "Português", "conservacao": "boa", "observacoes": "", "id": 1}
+
+filtro: GET /cartas?q=mago&tipo=monstro
+X-API-Key: [ocultada]
+Entrada: null
+HTTP 200
+Resposta: [{"nome": "Mago Negro", "tipo": "monstro", "quantidade": 3, "idioma": "Português", "conservacao": "boa", "observacoes": "", "id": 1}]
+
+patch: PATCH /cartas/1
+X-API-Key: [ocultada]
+Entrada: {"quantidade": 2}
+HTTP 200
+Resposta: {"nome": "Mago Negro", "tipo": "monstro", "quantidade": 2, "idioma": "Português", "conservacao": "boa", "observacoes": "", "id": 1}
+
+invalido: POST /cartas
+X-API-Key: [ocultada]
+Entrada: {"nome": "Mago Negro", "tipo": "monstro", "quantidade": 0}
+HTTP 400
+Resposta: {"detail": "Dados inválidos.", "erros": [{"campo": "body.quantidade", "mensagem": "Input should be greater than or equal to 1"}]}
+
+duplicado: POST /cartas
+X-API-Key: [ocultada]
+Entrada: {"nome": "Mago Negro", "tipo": "monstro", "quantidade": 3}
+HTTP 409
+Resposta: {"detail": "Conflito de dados: nome duplicado ou vínculo inválido."}
+
+nao_encontrado: GET /cartas/999
+X-API-Key: [ocultada]
+Entrada: null
+HTTP 404
+Resposta: {"detail": "Recurso não encontrado."}
+
+deck: POST /decks
+X-API-Key: [ocultada]
+Entrada: {"nome": "Magos", "descricao": "Composição de estudo"}
+HTTP 201
+Resposta: {"nome": "Magos", "descricao": "Composição de estudo", "id": 1}
+
+item: PUT /decks/1/cartas/1
+X-API-Key: [ocultada]
+Entrada: {"quantidade": 2}
+HTTP 201
+Resposta: {"carta": {"nome": "Mago Negro", "tipo": "monstro", "quantidade": 2, "idioma": "Português", "conservacao": "boa", "observacoes": "", "id": 1}, "quantidade": 2}
+
+put_repetido: PUT /decks/1/cartas/1
+X-API-Key: [ocultada]
+Entrada: {"quantidade": 2}
+HTTP 200
+Resposta: {"carta": {"nome": "Mago Negro", "tipo": "monstro", "quantidade": 2, "idioma": "Português", "conservacao": "boa", "observacoes": "", "id": 1}, "quantidade": 2}
+
+deck_detalhe: GET /decks/1
+X-API-Key: [ocultada]
+Entrada: null
+HTTP 200
+Resposta: {"nome": "Magos", "descricao": "Composição de estudo", "id": 1, "itens": [{"carta": {"nome": "Mago Negro", "tipo": "monstro", "quantidade": 2, "idioma": "Português", "conservacao": "boa", "observacoes": "", "id": 1}, "quantidade": 2}], "total_cartas": 2}
+
+estoque: PUT /decks/1/cartas/1
+X-API-Key: [ocultada]
+Entrada: {"quantidade": 3}
+HTTP 409
+Resposta: {"detail": "O deck não pode usar mais cópias que a coleção possui."}
+
+exclusao_vinculada: DELETE /cartas/1
+X-API-Key: [ocultada]
+Entrada: null
+HTTP 409
+Resposta: {"detail": "Remova a carta dos decks antes de excluí-la da coleção."}
+
+cors: OPTIONS /cartas
+Sem chave de autenticação
+Entrada: null
+HTTP 200
+Resposta: "OK"
+
+cors_negado: OPTIONS /cartas
+Sem chave de autenticação
+Entrada: null
+HTTP 400
+Resposta: "Disallowed CORS origin"
+
+remover_item: DELETE /decks/1/cartas/1
+X-API-Key: [ocultada]
+Entrada: null
+HTTP 204
+Resposta: null
+
+delete: DELETE /cartas/1
+X-API-Key: [ocultada]
+Entrada: null
+HTTP 204
+Resposta: null
+
+apos_exclusao: GET /cartas/1
+X-API-Key: [ocultada]
+Entrada: null
+HTTP 404
+Resposta: {"detail": "Recurso não encontrado."}
+
+nova_carta: POST /cartas
+X-API-Key: [ocultada]
+Entrada: {"nome": "Dragão Branco de Olhos Azuis", "tipo": "monstro", "quantidade": 1}
+HTTP 201
+Resposta: {"nome": "Dragão Branco de Olhos Azuis", "tipo": "monstro", "quantidade": 1, "idioma": "Português", "conservacao": "boa", "observacoes": "", "id": 1}
+
+persistencia: GET /cartas
+X-API-Key: [ocultada]
+Entrada: null
+HTTP 200
+Resposta: [{"nome": "Dragão Branco de Olhos Azuis", "tipo": "monstro", "quantidade": 1, "idioma": "Português", "conservacao": "boa", "observacoes": "", "id": 1}]
