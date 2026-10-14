@@ -116,6 +116,10 @@ def test_documentacao_e_parametros(client):
     assert client.get('/docs').status_code == 200
     doc = client.get('/openapi.json').json()
     assert doc['paths']['/cartas']['get']['security'] == [{'APIKeyHeader': []}]
+    assert '400' in doc['paths']['/cartas']['post']['responses']
+    assert '422' not in doc['paths']['/cartas']['post']['responses']
+    assert '401' in doc['paths']['/cartas']['get']['responses']
+    assert '201' in doc['paths']['/decks/{deck_id}/cartas/{carta_id}']['put']['responses']
     assert client.get('/cartas?limite=101').status_code == 400
     assert client.get('/cartas?tipo=invalido').status_code == 400
     assert client.post('/cartas', content='{').status_code == 400
