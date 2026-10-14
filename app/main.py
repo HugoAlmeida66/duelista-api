@@ -190,4 +190,25 @@ def create_app(database_url=None, api_key=None, origins=None):
         db.delete(item); salvar(db)
         return Response(status_code=204)
 
+    gerar_openapi = api.openapi
+
+    def openapi_documentado():
+        schema = gerar_openapi()
+        for caminho, operacoes in schema['paths'].items():
+            for metodo, operacao in operacoes.items():
+                respostas = operacao.get('responses', {})
+                if '422' in respostas:
+                    respostas.pop('422')
+                    respostas['400'] = {'description': 'Dados inválidos; consulte detail e erros na resposta JSON.'}
+                if operacao.get('security'):
+                    respostas['401'] = {'description': 'Chave X-API-Key ausente ou inválida.'}
+                    if '{' in caminho:
+                        respostas['404'] = {'description': 'Recurso não encontrado.'}
+                    if metodo in ('post', 'patch', 'put') or (metodo == 'delete' and caminho.startswith('/cartas/')):
+                        respostas['409'] = {'description': 'Conflito de nome, quantidade ou vínculo.'}
+                if metodo == 'put':
+                    respostas['201'] = {'description': 'Vínculo criado.', 'content': respostas['200']['content']}
+        return schema
+
+    api.openapi = openapi_documentado
     return api
